@@ -38,14 +38,17 @@
 
 			var bits = textoEntrada.length;
 			var textoSalida = [];
+			var textoParidad = '';
 			var tamanoPalabra = 0;
 			var indiceEntrada = 1;
 			var indice = 0;
+			var bitsDeParidad = 0;
 
 			// Agregar bits de paridad
 			while ( indice < bits ) {
 				if ( esPotenciaDeDos( indiceEntrada ) ) {
 					textoSalida.push( 'P' );
+					bitsDeParidad++;
 				} else {
 					textoSalida.push( textoEntrada[ indice ] );
 					indice++;
@@ -68,11 +71,18 @@
 						}
 					}
 
-					textoSalida[indice] = paridad % 2 ? '1' : '0';
+					var bitParidad = paridad % 2 ? '1' : '0';
+					textoSalida[indice] = '<span style="color: red">' + bitParidad + '</span>';
+					textoParidad = textoParidad + bitParidad;
 				}
 			}
 
-			resultado.innerHTML = textoSalida.join( "" );
+			resultado.innerHTML =
+				'<li>Bits a transmitir: <span style="color: blue; font-weight: bold">' + textoSalida.join( "" ) + "</span></li>" +
+				"<li>Cantidad total de bits: " + (bits + bitsDeParidad) + "</li>" +
+				"<li>Cantidad de bits de datos: " + bits + "</li>" +
+				"<li>Cantidad de bits de paridad: " + bitsDeParidad + "</li>" +
+				"<li>Bits de paridad: " + textoParidad + "</li>";
 		}
 	} );
 })();
