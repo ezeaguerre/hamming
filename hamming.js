@@ -4,10 +4,24 @@
 		var resultado = document.getElementById( "resultado" );
 		var boton = document.getElementById( "calcular" );
 
-		boon.addEventListener( 'click', calcularYMostrarCodigHamming );
+		boton.addEventListener( 'click', calcularYMostrarCodigHamming );
 		texto.addEventListener( 'keydown', function(ev) {
-			if ( ev.keyCode === 13 )
+			if (
+					ev.key.startsWith( "Arrow" ) ||
+					ev.key === "Home" ||
+					ev.key === "End" ||
+					ev.key === "Backspace" ||
+					ev.key === "Delete" 
+				)
+				return;
+
+			if ( ev.key === "0" || ev.key === "1" )
+				return;
+
+			if ( ev.key === "Enter" )
 				calcularYMostrarCodigHamming();
+
+			ev.preventDefault();
 		} );
 
 		function esPotenciaDeDos(n) {
